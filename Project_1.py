@@ -1,24 +1,31 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[489]:
+# In[1]:
 
 
 # Dependencies
 import pandas as pd
-import numpy as np 
+import numpy as np
+import plotly
+import plotly.express as px
+import matplotlib
 
 
-# In[490]:
+# In[2]:
 
 
 # Store filepath in a variable
+# Please note to that you need to change this path if different from the actual path 
+
 file_one = "C:/Users/aragh/Desktop/Project_1/CO2Emission.csv"
 file_two = "C:/Users/aragh/Desktop/Project_1/CO2GDP.csv"
 file_three = "C:/Users/aragh/Desktop/Project_1/CO2POP.csv"
+file_four = "C:/Users/aragh/Desktop/Project_1/Countries2.csv"
+file_five = "C:/Users/aragh/Desktop/Project_1/allcountries.csv"
 
 
-# In[491]:
+# In[3]:
 
 
 # Read our Data file with the pandas library
@@ -33,15 +40,20 @@ file_two_df = pd.read_csv(file_two, encoding="ISO-8859-1")
 # CO2 emission per capita
 file_three_df = pd.read_csv(file_three, encoding="ISO-8859-1")
 
+# Map data
+allcountries_df = pd.read_csv(file_five, encoding="ISO-8859-1")
 
-# In[492]:
+Countries_df = pd.read_csv(file_four, encoding="ISO-8859-1")
+
+
+# In[4]:
 
 
 # Show just the header
-file_one_df.head()
+allcountries_df
 
 
-# In[493]:
+# In[5]:
 
 
 # Show just the header
@@ -49,26 +61,26 @@ file_one_df.head()
 file_two_df.head()
 
 
-# In[494]:
+# In[6]:
 
 
 # Show just the header
 file_three_df.head()
 
 
-# In[495]:
+# In[7]:
 
 
 file_one_df.count()
 
 
-# In[496]:
+# In[8]:
 
 
 file_two_df.count()
 
 
-# In[497]:
+# In[9]:
 
 
 # Clean up the input files by dropping row with no data
@@ -80,7 +92,7 @@ file_two_df = file_two_df.dropna(0,how='any')
 file_three_df = file_three_df.dropna(0,how='any')
 
 
-# In[498]:
+# In[10]:
 
 
 # Test number of rows
@@ -88,7 +100,7 @@ file_three_df = file_three_df.dropna(0,how='any')
 file_one_df.count()
 
 
-# In[499]:
+# In[11]:
 
 
 # Name of the desired coulumns in the csv files
@@ -177,10 +189,10 @@ Russia_df_1 = file_one_df.loc[file_one_df["Region/Country/Economy"] == "Russian 
 Russia_df_2 = file_two_df.loc[file_two_df["Region/Country/Economy"] == "Russian Federation", columns]
 Russia_df_3 = file_three_df.loc[file_three_df["Region/Country/Economy"] == "Russian Federation", columns]
 
-China_df_3
+Canada_df_1
 
 
-# In[500]:
+# In[12]:
 
 
 # Test the data frames
@@ -196,7 +208,7 @@ China_df_3.head()
 # Canada_df_1.head()
 
 
-# In[501]:
+# In[13]:
 
 
 # Change the name of rows to give them an appropriate name 
@@ -243,7 +255,7 @@ Russia_df_3_New = Russia_df_3.rename(index = {57:'CO2/POP'})
 China_df_3_New
 
 
-# In[502]:
+# In[14]:
 
 
 # Transpose the dataframes
@@ -290,7 +302,7 @@ Russia_df_3 = Russia_df_3_New.T
 China_df_3
 
 
-# In[503]:
+# In[15]:
 
 
 # Combine all the information of a country into a single dataframe of the name of that Country 
@@ -324,10 +336,10 @@ China = pd.concat([China_df_1,China_df_2, China_df_3], axis=1)
 frames = [Russia_df_1, Russia_df_2, Russia_df_3]
 Russia = pd.concat([Russia_df_1,Russia_df_2, Russia_df_3], axis=1)
 
-China
+Russia
 
 
-# In[516]:
+# In[16]:
 
 
 Canada['CO2Emission'] = Canada['CO2Emission'].astype(float)
@@ -350,6 +362,11 @@ Japan['CO2Emission'] = Japan['CO2Emission'].astype(float)
 Japan['CO2/GDP'] = Japan['CO2/GDP'].astype(float)
 Japan['CO2/POP'] = Japan['CO2/POP'].astype(float)
 
+
+France['CO2Emission'] = France['CO2Emission'].astype(float)
+France['CO2/GDP'] = France['CO2/GDP'].astype(float)
+France['CO2/POP'] = France['CO2/POP'].astype(float)
+
 China['CO2Emission'] = China['CO2Emission'].astype(float)
 # China['CO2/GDP'] = China['CO2/GDP'].astype(float)
 # China['CO2/POP'] = China['CO2/POP'].astype(float)
@@ -363,7 +380,7 @@ Italy['CO2/GDP'] = Italy['CO2/GDP'].astype(float)
 Italy['CO2/POP'] = Italy['CO2/POP'].astype(float)
 
 
-# In[519]:
+# In[17]:
 
 
 # Split each country's dataframe to two dataframes of before and after Paris agreemnets
@@ -378,7 +395,7 @@ UK_before = UK.iloc[:24,:]
 UK_after = UK.iloc[25:,:]
 
 Germany_before = Germany.iloc[:24,:] 
-Germany = Germany.iloc[25:,:]
+Germany_after = Germany.iloc[25:,:]
 
 Japan_before = Japan.iloc[:24,:] 
 Japan_after = Japan.iloc[25:,:]
@@ -396,7 +413,7 @@ China_before = China.iloc[:24,:]
 China_after = China.iloc[25:,:]
 
 
-# In[522]:
+# In[18]:
 
 
 # Now, you can calculate the statistics of Total, and before and after Paris agreemnet of each country. 
@@ -415,8 +432,122 @@ Canada_after.mean()
 
 # 
 
-# In[ ]:
+# In[19]:
 
 
+France_before.mean()
 
+
+# In[20]:
+
+
+# df = px.data.gapminder().query("year==2007")
+
+df = Countries_df
+
+fig = px.scatter_geo(df, locations="iso_alpha", color="continent ",
+                     hover_name="country ", size="pop",
+                    animation_frame="year ",
+                     projection="equirectangular")
+fig.show()
+
+
+# In[21]:
+
+
+plotly.offline.plot(fig, filename='C:/Users/aragh\Desktop/canada_offline.html')
+
+
+# In[22]:
+
+
+df = allcountries_df
+
+figemission = px.scatter_geo(df, locations="isoalpha", color="continent",
+                     hover_name="country", size="co2emission",
+                    animation_frame="year",color_continuous_scale=px.colors.cyclical.IceFire,size_max=15, 
+                     projection="equirectangular")
+figemission.show()
+plotly.offline.plot(figemission, filename='C:/Users/aragh/Desktop/Project_1/emission_offline.html')
+
+
+# In[23]:
+
+
+df = allcountries_df
+
+figGDP = px.scatter_geo(df, locations="isoalpha", color="country",
+                     hover_name="country", size="co2/gdp",
+                    animation_frame="year",
+                     projection="equirectangular")
+figGDP.show()
+plotly.offline.plot(figGDP, filename='C:/Users/aragh/Desktop/Project_1/GDP_offline.html')
+
+
+# In[24]:
+
+
+df = allcountries_df
+
+figPOP = px.scatter_geo(df, locations="isoalpha", color="country",
+                     hover_name="country", size="co2/pop",
+                    animation_frame="year",
+                     projection="equirectangular")
+figPOP.show()
+plotly.offline.plot(figPOP, filename='C:/Users/aragh/Desktop/Project_1/POP_offline.html')
+
+
+# In[25]:
+
+
+df = allcountries_df
+
+figemission1 = px.choropleth(df, locations="isoalpha", color="co2emission", hover_name="country", animation_frame="year",
+                        range_color=[1000,6000])
+figemission1.show()
+plotly.offline.plot(figemission1,  filename='C:/Users/aragh/Desktop/Project_1/emission1_offline.html')
+
+
+# In[26]:
+
+
+df = allcountries_df
+
+figcountries = px.choropleth(df, locations="isoalpha", color="country", hover_name="country", 
+                             range_color=[1000,6000])
+figcountries.show()
+
+plotly.offline.plot(figcountries,  filename='C:/Users/aragh/Desktop/Project_1/countries_offline.html')
+
+
+# In[41]:
+
+
+df = allcountries_df
+
+figtrend = px.line(df, x="year", y="co2emission", color="continent", line_group="country", hover_name="country",
+        line_shape="spline", render_mode="svg")
+
+figtrend.update_layout(
+    hoverlabel=dict(
+        bgcolor="white",
+        font_size=16,
+        font_family="Rockwell"
+    )
+)
+
+figtrend.show()
+plotly.offline.plot(figtrend,  filename='C:/Users/aragh/Desktop/Project_1/Trend')
+
+
+# In[40]:
+
+
+df = allcountries_df
+
+fig = px.scatter(df, x="co2emission", y="co2/gdp", animation_frame="year", animation_group="country",
+           size="co2emission", color="continent", hover_name="country", facet_col="continent",
+           log_x=True, size_max=45, range_x=[100,10000], range_y=[0,3])
+fig.show()
+plotly.offline.plot(fig,  filename='C:/Users/aragh/Desktop/Project_1/Group')
 
