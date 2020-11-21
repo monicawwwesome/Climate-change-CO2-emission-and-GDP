@@ -1,5 +1,7 @@
 # Climate change, CO2 emission, and GDP project
-Climate data project for group 6 (Let's go TEAM!)
+
+> “We have to wake up to the fierce urgency of the now”  --Jim Yong Kim, President, The World Bank
+
 
 ## Table of Contents
 
@@ -25,10 +27,9 @@ Climate data project for group 6 (Let's go TEAM!)
  - What country produces the least amount of GHGs?
  - Which country produces the least amount of GHGs/capita?
  - In what year do we see a spike in GHG emissions? 
- - What is the median amount of GHGs produced by a country?
  - Is there a relationship between high GDP and greenhouse gas emissions?
  - Does the data reflect any difference in GHG emissions after a country has joined the Paris Agreement on climate?
- - What is the difference in the amount of GHGs produced by the biggest country and the smallest country?
+
 
 <!-- DATASET USING -->
 ## DATASET USING
