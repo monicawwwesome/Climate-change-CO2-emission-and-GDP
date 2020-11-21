@@ -18,11 +18,11 @@ import matplotlib
 # Store filepath in a variable
 # Please note to that you need to change this path if different from the actual path 
 
-file_one = "C:/Users/aragh/Desktop/Project_1/CO2Emission.csv"
-file_two = "C:/Users/aragh/Desktop/Project_1/CO2GDP.csv"
-file_three = "C:/Users/aragh/Desktop/Project_1/CO2POP.csv"
-file_four = "C:/Users/aragh/Desktop/Project_1/Countries2.csv"
-file_five = "C:/Users/aragh/Desktop/Project_1/allcountries.csv"
+file_one = "../Resources/CO2Emission.csv"
+file_two = "../Resources/CO2GDP.csv"
+file_three = "../Resources/CO2POP.csv"
+file_four = "../Resources/Countries2.csv"
+file_five = "../Resources/allcountries.csv"
 
 
 # In[3]:
@@ -368,12 +368,12 @@ France['CO2/GDP'] = France['CO2/GDP'].astype(float)
 France['CO2/POP'] = France['CO2/POP'].astype(float)
 
 China['CO2Emission'] = China['CO2Emission'].astype(float)
-# China['CO2/GDP'] = China['CO2/GDP'].astype(float)
-# China['CO2/POP'] = China['CO2/POP'].astype(float)
+China['CO2/GDP'] = China['CO2/GDP'].astype(float)
+China['CO2/POP'] = China['CO2/POP'].astype(float)
 
-# Russia['CO2Emission'] = Russia['CO2Emission'].astype(float)
-# Russia['CO2/GDP'] = Russia['CO2/GDP'].astype(float)
-# Russia['CO2/POP'] = Russia['CO2/POP'].astype(float)
+Russia['CO2Emission'] = Russia['CO2Emission'].astype(float)
+Russia['CO2/GDP'] = Russia['CO2/GDP'].astype(float)
+Russia['CO2/POP'] = Russia['CO2/POP'].astype(float)
 
 Italy['CO2Emission'] = Italy['CO2Emission'].astype(float)
 Italy['CO2/GDP'] = Italy['CO2/GDP'].astype(float)
@@ -415,16 +415,15 @@ China_after = China.iloc[25:,:]
 
 # In[18]:
 
+'''
+    Now, you can calculate the statistics of Total, and before and after Paris agreemnet of each country. 
 
-# Now, you can calculate the statistics of Total, and before and after Paris agreemnet of each country. 
+    For example 
+    Canada.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 1991-2019
+    Canada_before.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 1991-2015
+    Canada_after.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 2016-2019
 
-# For example 
-# Canada.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 1991-2019
-# Canada_before.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 1991-2015
-# Canada_after.mean() gives you the mean of CO2 emission, CO2/GDP, and CO2/POP for the period of 2016-2019
-#
-#
-
+'''
 
 
 Canada_after.mean()
@@ -468,7 +467,7 @@ figemission = px.scatter_geo(df, locations="isoalpha", color="continent",
                     animation_frame="year",color_continuous_scale=px.colors.cyclical.IceFire,size_max=15, 
                      projection="equirectangular")
 figemission.show()
-plotly.offline.plot(figemission, filename='C:/Users/aragh/Desktop/Project_1/emission_offline.html')
+plotly.offline.plot(figemission, filename='../Graphic/emission_offline.html')
 
 
 # In[23]:
@@ -481,7 +480,7 @@ figGDP = px.scatter_geo(df, locations="isoalpha", color="country",
                     animation_frame="year",
                      projection="equirectangular")
 figGDP.show()
-plotly.offline.plot(figGDP, filename='C:/Users/aragh/Desktop/Project_1/GDP_offline.html')
+plotly.offline.plot(figGDP, filename='../Graphic/GDP_offline.html')
 
 
 # In[24]:
@@ -494,7 +493,7 @@ figPOP = px.scatter_geo(df, locations="isoalpha", color="country",
                     animation_frame="year",
                      projection="equirectangular")
 figPOP.show()
-plotly.offline.plot(figPOP, filename='C:/Users/aragh/Desktop/Project_1/POP_offline.html')
+plotly.offline.plot(figPOP, filename='../Graphic/POP_offline.html')
 
 
 # In[25]:
@@ -505,7 +504,7 @@ df = allcountries_df
 figemission1 = px.choropleth(df, locations="isoalpha", color="co2emission", hover_name="country", animation_frame="year",
                         range_color=[1000,6000])
 figemission1.show()
-plotly.offline.plot(figemission1,  filename='C:/Users/aragh/Desktop/Project_1/emission1_offline.html')
+plotly.offline.plot(figemission1,  filename='../Graphic/emission1_offline.html')
 
 
 # In[26]:
@@ -517,7 +516,7 @@ figcountries = px.choropleth(df, locations="isoalpha", color="country", hover_na
                              range_color=[1000,6000])
 figcountries.show()
 
-plotly.offline.plot(figcountries,  filename='C:/Users/aragh/Desktop/Project_1/countries_offline.html')
+plotly.offline.plot(figcountries,  filename='../Graphic/countries_offline.html')
 
 
 # In[41]:
@@ -537,7 +536,7 @@ figtrend.update_layout(
 )
 
 figtrend.show()
-plotly.offline.plot(figtrend,  filename='C:/Users/aragh/Desktop/Project_1/Trend')
+plotly.offline.plot(figtrend,  filename='../Graphic/Trend')
 
 
 # In[40]:
@@ -549,5 +548,5 @@ fig = px.scatter(df, x="co2emission", y="co2/gdp", animation_frame="year", anima
            size="co2emission", color="continent", hover_name="country", facet_col="continent",
            log_x=True, size_max=45, range_x=[100,10000], range_y=[0,3])
 fig.show()
-plotly.offline.plot(fig,  filename='C:/Users/aragh/Desktop/Project_1/Group')
+plotly.offline.plot(fig,  filename='../Graphic/Group')
 
