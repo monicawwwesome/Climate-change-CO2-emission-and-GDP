@@ -35,8 +35,8 @@ Climate data project for group 6 (Let's go TEAM!)
 
   A CO2 emmision statistics package found on IEA (International Energy Agency) website is used for this project. From the free highlights offered by IEA, we focused on the total CO2 emission section, the CO2 per capita section, and the CO2 per GDP secion. 
 
-<!-- RESULT -->
-## RESULT
+<!-- RESULTS -->
+## RESULTS
 
   Line graphs used in the presentation and formal write-up can be found in the repository. 
   
